@@ -6,7 +6,7 @@ const Copyright = () => {
     <Stack className="copyright" justifyContent="center" style={{ height: 40, marginTop: 20 }}>
       <div className="container">
         <p>
-          © copyright taggings
+          © copyright 
         </p>
       </div>
     </Stack>
