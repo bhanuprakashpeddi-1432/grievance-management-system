@@ -1,6 +1,6 @@
-# Grievance Management System - Frontend
+# Grievance Management System
 
-React-based frontend application for the Grievance Management System.
+Complete grievance management system with React frontend and Node.js backend.
 
 ## 🚀 Features
 
@@ -12,9 +12,12 @@ React-based frontend application for the Grievance Management System.
 - **Form Validation** with comprehensive error handling
 - **File Upload** support for attachments
 - **Search & Filter** functionality
+- **Prisma ORM** with MySQL database
+- **Role-based Access Control** (Admin, Staff, User)
 
 ## 🛠️ Tech Stack
 
+**Frontend:**
 - React 18.2.0 with TypeScript
 - RSuite 5.28.2 UI Framework
 - React Router 6.16.0 for navigation
@@ -22,141 +25,131 @@ React-based frontend application for the Grievance Management System.
 - Webpack for bundling
 - Less for styling
 
+**Backend:**
+- Node.js with Express.js
+- Prisma ORM 5.9.1
+- MySQL database
+- JWT authentication
+- bcrypt for password hashing
+- Express middleware (CORS, Helmet, Rate limiting)
+
 **Database:**
-- MySQL 8.0+
+- MySQL 8.0+ with Prisma ORM
+- Database migrations and seeding
 - Connection pooling
 - Transaction support
-- Backup and recovery
 
-## 📋 Prerequisites
+## 📁 Project Structure
 
-Before you begin, ensure you have the following installed:
+```
+grievance-management-system/
+├── frontend/                 # React frontend application
+│   ├── src/
+│   │   ├── components/      # Reusable React components
+│   │   ├── pages/          # Page components
+│   │   ├── contexts/       # React contexts (Auth, etc.)
+│   │   ├── services/       # API services
+│   │   ├── types/          # TypeScript type definitions
+│   │   ├── styles/         # Global styles
+│   │   └── utils/          # Utility functions
+│   ├── public/             # Static assets
+│   ├── package.json
+│   └── webpack.config.js
+├── backend/                 # Node.js backend API
+│   ├── prisma/             # Database schema and migrations
+│   ├── routes/             # API route handlers
+│   ├── middleware/         # Express middleware
+│   ├── config/             # Configuration files
+│   ├── database/           # Database utilities
+│   ├── package.json
+│   └── server.js
+├── package.json            # Workspace configuration
+└── README.md
+
+## � Installation & Setup
+
+### Prerequisites
 
 - **Node.js** (v16 or higher)
 - **npm** (v8 or higher)
 - **MySQL** (v8.0 or higher)
 - **Git** (for cloning the repository)
 
-## 🔧 Installation
-
-### Option 1: Automated Setup (Recommended)
+### Quick Start
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/grievance-management-system.git
+   git clone https://github.com/bhanuprakashpeddi-1432/grievance-management-system.git
    cd grievance-management-system
    ```
 
-2. **Run the setup script**
-   
-   **For Windows:**
-   ```cmd
-   setup.bat
-   ```
-   
-   **For macOS/Linux:**
+2. **Install dependencies**
    ```bash
-   chmod +x setup.sh
-   ./setup.sh
-   ```
-
-### Option 2: Manual Setup
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/grievance-management-system.git
-   cd grievance-management-system
-   ```
-
-2. **Install frontend dependencies**
-   ```bash
+   # Install frontend dependencies
+   cd frontend
    npm install
-   ```
-
-3. **Install backend dependencies**
-   ```bash
-   cd backend
+   
+   # Install backend dependencies
+   cd ../backend
    npm install
    cd ..
    ```
 
-4. **Configure environment variables**
+3. **Configure Database**
    
-   **Backend Configuration:**
-   ```bash
-   cp backend/.env.example backend/.env
-   ```
-   
-   Edit `backend/.env` with your database credentials:
+   Create a MySQL database and update the connection string in `backend/.env`:
    ```env
-   # Database Configuration
-   DB_HOST=localhost
-   DB_PORT=3306
-   DB_NAME=grievance_management_system
-   DB_USER=your_mysql_username
-   DB_PASSWORD=your_mysql_password
-   
-   # JWT Configuration
-   JWT_SECRET=your-super-secret-jwt-key
-   JWT_EXPIRES_IN=24h
-   
-   # Other configurations...
+   DATABASE_URL="mysql://root:admin@localhost:3306/grievance_management_system"
    ```
 
-   **Frontend Configuration:**
+4. **Setup Database Schema**
    ```bash
-   # Create .env file in root directory
-   echo "REACT_APP_API_URL=http://localhost:3001/api" > .env
-   echo "REACT_APP_ENVIRONMENT=development" >> .env
+   cd backend
+   npx prisma migrate dev --name init
+   npx prisma db seed
    ```
 
-5. **Setup Database**
-   ```bash
-   # Make sure MySQL is running
-   # Run the database setup script
-   node setup-database.js
-   ```
-
-6. **Start the application**
+5. **Start the Application**
    
-   **Start Backend (Terminal 1):**
+   **Backend (Terminal 1):**
    ```bash
    cd backend
    npm start
+   # Backend runs on http://localhost:3002
    ```
    
-   **Start Frontend (Terminal 2):**
+   **Frontend (Terminal 2):**
    ```bash
+   cd frontend
    npm run dev
+   # Frontend runs on http://localhost:3000
    ```
 
 ## 🗄️ Database Schema
 
-The application uses a normalized MySQL database schema with the following main tables:
+The application uses Prisma ORM with a normalized MySQL database schema:
 
-- **users** - User accounts and authentication
-- **grievances** - Main grievance records
-- **grievance_categories** - Categories for organizing grievances
-- **grievance_comments** - Comments and updates on grievances
-- **grievance_attachments** - File attachments
-- **grievance_status_history** - Status change tracking
-- **notifications** - User notifications
+- **User** - User accounts and authentication
+- **Grievance** - Main grievance records  
+- **GrievanceCategory** - Categories for organizing grievances
+- **GrievanceComment** - Comments and updates on grievances
+- **GrievanceAttachment** - File attachments
+- **GrievanceStatusHistory** - Status change tracking
+- **Notification** - User notifications
 
-## 🔐 Authentication
+## 🔐 Default Login Credentials
 
-The application uses JWT-based authentication with the following default accounts:
-
-### Default Admin Account
-- **Email:** admin@company.com
-- **Password:** password123
+### Admin Account
+- **Email:** admin@grievance.com
+- **Password:** admin123
 - **Role:** Admin
 
-### Default Staff Account
+### Staff Accounts
 - **Email:** jane.smith@company.com
 - **Password:** password123
 - **Role:** Staff
 
-### Default User Account
+### User Accounts
 - **Email:** john.doe@company.com
 - **Password:** password123
 - **Role:** User
@@ -166,8 +159,7 @@ The application uses JWT-based authentication with the following default account
 ### Authentication
 - `POST /api/auth/login` - User login
 - `POST /api/auth/register` - User registration
-- `POST /api/auth/logout` - User logout
-- `GET /api/auth/me` - Get current user
+- `GET /api/auth/me` - Get current user profile
 
 ### Grievances
 - `GET /api/grievances` - Get all grievances
@@ -175,18 +167,18 @@ The application uses JWT-based authentication with the following default account
 - `GET /api/grievances/:id` - Get specific grievance
 - `PUT /api/grievances/:id` - Update grievance
 - `DELETE /api/grievances/:id` - Delete grievance
-- `PATCH /api/grievances/:id/status` - Update status
+- `PATCH /api/grievances/:id/status` - Update grievance status
 
 ### Dashboard
 - `GET /api/dashboard/stats` - Get dashboard statistics
-- `GET /api/dashboard/charts/:type` - Get chart data
-- `GET /api/dashboard/activities` - Get recent activities
+- `GET /api/dashboard/charts` - Get chart data
+- `GET /api/dashboard/recent` - Get recent activities
 
-### Users
-- `GET /api/users` - Get all users (Admin only)
+### Users (Admin only)
+- `GET /api/users` - Get all users
 - `GET /api/users/:id` - Get specific user
 - `PUT /api/users/:id` - Update user profile
-- `POST /api/users/change-password` - Change password
+- `DELETE /api/users/:id` - Delete user
 
 ## 📱 Usage
 
@@ -206,50 +198,48 @@ The application uses JWT-based authentication with the following default account
 
 ## 🔧 Configuration
 
-### Environment Variables
+### Backend Environment Variables (.env)
 
-**Backend (.env):**
 ```env
-# Server Configuration
+# Environment Configuration
 NODE_ENV=development
-PORT=3001
+PORT=3002
 
-# Database
+# Database Configuration
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=grievance_management_system
 DB_USER=root
-DB_PASSWORD=your_password
+DB_PASSWORD=admin
 
-# Authentication
-JWT_SECRET=your-jwt-secret
+# Prisma Database URL
+DATABASE_URL="mysql://root:admin@localhost:3306/grievance_management_system"
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 JWT_EXPIRES_IN=24h
 
-# File Upload
+# File Upload Configuration
 UPLOAD_PATH=./uploads
 MAX_FILE_SIZE=5242880
 
-# Email (Optional)
-EMAIL_HOST=smtp.gmail.com
-EMAIL_PORT=587
-EMAIL_USER=your-email@gmail.com
-EMAIL_PASSWORD=your-email-password
+# Rate Limiting
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
+
+# Frontend URL (for CORS)
+FRONTEND_URL=http://localhost:3000
 
 # Security
 BCRYPT_ROUNDS=10
-RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
 ```
 
-**Frontend (.env):**
-```env
-REACT_APP_API_URL=http://localhost:3001/api
-REACT_APP_ENVIRONMENT=development
+### Frontend Configuration
+
+The frontend API URL is configured in `webpack.config.js`:
+```javascript
+REACT_APP_API_URL: 'http://localhost:3002/api'
 ```
-
-### Database Configuration
-
-The application automatically creates the database schema on first run. You can customize the database connection in `backend/config/database.js`.
 
 ## 🚀 Deployment
 
@@ -257,6 +247,7 @@ The application automatically creates the database schema on first run. You can 
 
 1. **Build Frontend:**
    ```bash
+   cd frontend
    npm run build
    ```
 
@@ -264,28 +255,20 @@ The application automatically creates the database schema on first run. You can 
    ```bash
    # Update backend/.env
    NODE_ENV=production
-   PORT=3001
-   
-   # Update frontend build configuration
-   REACT_APP_API_URL=https://your-api-domain.com/api
+   PORT=3002
    ```
 
-3. **Deploy Backend:**
-   - Use PM2 for process management
-   - Configure reverse proxy (nginx)
-   - Set up SSL certificates
-   - Configure database backups
+3. **Deploy with Docker (Recommended):**
+   ```bash
+   # Build and run with docker-compose
+   docker-compose up -d
+   ```
 
-4. **Deploy Frontend:**
-   - Serve static files from `build` directory
-   - Configure CDN for assets
-   - Set up proper caching headers
+### Database Migration in Production
 
-### Docker Deployment
-
-```dockerfile
-# Dockerfile example included in repository
-docker-compose up -d
+```bash
+cd backend
+npx prisma migrate deploy
 ```
 
 ## 🧪 Testing
@@ -293,19 +276,22 @@ docker-compose up -d
 ### Run Tests
 ```bash
 # Frontend tests
+cd frontend
 npm test
 
 # Backend tests
 cd backend
 npm test
-
-# Integration tests
-npm run test:integration
 ```
 
-### Test Coverage
+### Database Operations
 ```bash
-npm run test:coverage
+# Reset database
+cd backend
+npx prisma migrate reset
+
+# View database
+npx prisma studio
 ```
 
 ## 📊 Performance
@@ -366,41 +352,14 @@ npm run test:coverage
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 📞 Support
 
 For support and questions:
-- **Email:** support@grievance-system.com
-- **Documentation:** [Wiki](https://github.com/yourusername/grievance-management-system/wiki)
-- **Issues:** [GitHub Issues](https://github.com/yourusername/grievance-management-system/issues)
-
-## 🎯 Roadmap
-
-### Upcoming Features
-- [ ] Mobile app (React Native)
-- [ ] Real-time chat system
-- [ ] Advanced analytics dashboard
-- [ ] Email notifications
-- [ ] Multi-language support
-- [ ] API documentation with Swagger
-- [ ] Automated testing suite
-- [ ] Performance monitoring dashboard
-
-### Version History
-- **v1.0.0** - Initial release with core features
-- **v1.1.0** - Added user authentication and dashboard
-- **v1.2.0** - Enhanced form validation and file uploads
-- **v1.3.0** - Backend API integration and MySQL database
-
-## 🙏 Acknowledgments
-
-- RSuite UI Framework for the amazing components
-- React community for the excellent ecosystem
-- Node.js and Express for the robust backend
-- MySQL for the reliable database
-- All contributors and testers
+- **GitHub:** [bhanuprakashpeddi-1432](https://github.com/bhanuprakashpeddi-1432)
+- **Issues:** [GitHub Issues](https://github.com/bhanuprakashpeddi-1432/grievance-management-system/issues)
 
 ---
 
-Made with ❤️ by [Your Name]
+Made with ❤️ by [Bhanuprakash Peddi](https://github.com/bhanuprakashpeddi-1432)
