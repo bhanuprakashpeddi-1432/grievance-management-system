@@ -8,7 +8,7 @@ const Brand = props => {
     <Stack className="brand" {...props}>
       <Logo height={26} style={{ marginTop: 6 }} />
       <Link to="/">
-        <span style={{ marginLeft: 14 }}>UserName</span>
+        <span style={{ marginLeft: 14 }}>Grievance Management System</span>
       </Link>
     </Stack>
   );

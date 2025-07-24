@@ -57,23 +57,23 @@ const SignIn = () => {
       direction="column"
       style={{
         height: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(195deg, #ffff 50%, #667eea 40%)',
       }}
     >
       <Brand style={{ marginBottom: 10 }} />
 
-      <Panel bordered style={{ background: '#fff', width: 400 }} header={<h3>Sign In</h3>}>
+      <Panel bordered style={{ background: '#ffffff', width: 400, borderColor: '#023e8a', borderRadius: 10 }} header={<h3>Sign In</h3>}>
         <Form fluid>
-          <Form.Group>
+            <Form.Group>
             <Form.ControlLabel>Email address</Form.ControlLabel>
             <Form.Control 
               name="email" 
               type="email"
               value={formData.email}
-              onChange={(value) => handleChange(value, 'email')}
+              onChange={(value: string) => handleChange(value, 'email')}
               placeholder="Enter your email"
             />
-          </Form.Group>
+            </Form.Group>
           <Form.Group>
             <Form.ControlLabel>
               <span>Password</span>
@@ -82,7 +82,7 @@ const SignIn = () => {
               name="password" 
               type="password"
               value={formData.password}
-              onChange={(value) => handleChange(value, 'password')}
+              onChange={(value: string) => handleChange(value, 'password')}
               placeholder="Enter your password"
             />
             <a style={{ float: 'right' }}>Forgot password?</a>

@@ -96,7 +96,7 @@ const Register = () => {
       direction="column"
       style={{
         height: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'linear-gradient(195deg, #ffff 50%, #667eea 40%)',
       }}
     >
       <Brand style={{ marginBottom: 10 }} />
