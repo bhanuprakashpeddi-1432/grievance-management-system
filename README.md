@@ -39,6 +39,26 @@ Complete grievance management system with React frontend and Node.js backend.
 - Connection pooling
 - Transaction support
 
+## 📸 Output Screenshots
+
+![Dashboard Overview](images/DashBoardImage.png)
+![Dashboard Analysis](images/DashBoardAnalysis.png)
+*Dashboard displaying real-time grievance statistics.*
+
+![Login Page](images/SignInPage.png)
+![Register Page](images/SignUpPage.png)
+*User login screen with validation.*
+
+![Grievance Submission](images/Form.png)
+*Form for submitting a new grievance.*
+
+![Backend Data Management](images/BackendPrismaMigrate.png)
+![Backend Data Management](images/BackendPrismaMigrate.png)
+*Admin panel for managing user accounts.*
+
+![Grievance Details](images/grievianceList.png)
+*Detailed view of a grievance with comments and attachments.*
+
 ## 📁 Project Structure
 
 ```
